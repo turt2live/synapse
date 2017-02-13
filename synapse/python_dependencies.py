@@ -52,9 +52,9 @@ CONDITIONAL_REQUIREMENTS = {
     "matrix-synapse-ldap3": {
         "matrix-synapse-ldap3>=0.1": ["ldap_auth_provider"],
     },
-    "psutil": {
-        "psutil>=2.0.0": ["psutil>=2.0.0"],
-    },
+    # "psutil": {
+    #     "psutil>=2.0.0": ["psutil>=2.0.0"],
+    # },
 }
 
 
