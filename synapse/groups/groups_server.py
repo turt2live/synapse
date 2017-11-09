@@ -392,8 +392,9 @@ class GroupsServerHandler(object):
 
             entry = {"user_id": g_user_id}
 
-            profile = yield self.profile_handler.get_profile_from_cache(g_user_id)
-            entry.update(profile)
+            if bool(is_public):
+                profile = yield self.profile_handler.get_profile_from_cache(g_user_id)
+                entry.update(profile)
 
             if not is_public:
                 entry["is_public"] = False
