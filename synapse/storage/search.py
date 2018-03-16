@@ -24,6 +24,9 @@ from .background_updates import BackgroundUpdateStore
 from synapse.api.errors import SynapseError
 from synapse.storage.engines import PostgresEngine, Sqlite3Engine
 
+import logging
+import re
+import simplejson as json
 
 logger = logging.getLogger(__name__)
 

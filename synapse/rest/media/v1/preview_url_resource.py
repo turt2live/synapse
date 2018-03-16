@@ -46,6 +46,18 @@ from synapse.http.server import (
 from synapse.util.async import ObservableDeferred
 from synapse.util.stringutils import is_ascii
 
+import os
+import re
+import fnmatch
+import cgi
+import simplejson as json
+import urlparse
+import itertools
+import datetime
+import errno
+import shutil
+
+import logging
 logger = logging.getLogger(__name__)
 
 
