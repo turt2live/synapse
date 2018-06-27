@@ -310,3 +310,8 @@ class ApplicationServicesHandler(object):
             exists = yield self.query_user_exists(user_id)
             defer.returnValue(exists)
         defer.returnValue(True)
+
+    @defer.inlineCallbacks
+    def get_services(self):
+        services = yield self.store.get_app_services()
+        defer.returnValue(services)

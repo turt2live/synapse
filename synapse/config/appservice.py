@@ -77,7 +77,7 @@ def load_appservices(hostname, config_files):
                         )
                     )
                 seen_as_tokens[appservice.token] = config_file
-                logger.info("Loaded application service: %s", appservice)
+                logger.info("Loaded legacy application service: %s", appservice)
                 appservices.append(appservice)
         except Exception as e:
             logger.error("Failed to load appservice from '%s'", config_file)
@@ -163,5 +163,6 @@ def _load_appservice(hostname, as_info, config_filename):
         sender=user_id,
         id=as_info["id"],
         protocols=protocols,
-        rate_limited=rate_limited
+        rate_limited=rate_limited,
+        legacy=True
     )

@@ -85,7 +85,7 @@ class ApplicationService(object):
     NS_LIST = [NS_USERS, NS_ALIASES, NS_ROOMS]
 
     def __init__(self, token, hostname, url=None, namespaces=None, hs_token=None,
-                 sender=None, id=None, protocols=None, rate_limited=True):
+                 sender=None, id=None, protocols=None, rate_limited=True, legacy=False):
         self.token = token
         self.url = url
         self.hs_token = hs_token
@@ -93,6 +93,7 @@ class ApplicationService(object):
         self.server_name = hostname
         self.namespaces = self._check_namespaces(namespaces)
         self.id = id
+        self.legacy = legacy
 
         if "|" in self.id:
             raise Exception("application service ID cannot contain '|' character")

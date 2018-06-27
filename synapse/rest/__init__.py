@@ -25,7 +25,7 @@ from synapse.rest.client.v1 import (
     initial_sync,
     directory,
     voip,
-    admin,
+    admin as syn_admin,
     pusher,
     push_rule,
     register as v1_register,
@@ -55,6 +55,10 @@ from synapse.rest.client.v2_alpha import (
     groups,
 )
 
+from synapse.rest.admin import (
+    appservices,
+)
+
 from synapse.http.server import JsonResource
 
 
@@ -79,7 +83,7 @@ class ClientRestResource(JsonResource):
         initial_sync.register_servlets(hs, client_resource)
         directory.register_servlets(hs, client_resource)
         voip.register_servlets(hs, client_resource)
-        admin.register_servlets(hs, client_resource)
+        syn_admin.register_servlets(hs, client_resource)
         pusher.register_servlets(hs, client_resource)
         push_rule.register_servlets(hs, client_resource)
         logout.register_servlets(hs, client_resource)
@@ -104,3 +108,15 @@ class ClientRestResource(JsonResource):
         sendtodevice.register_servlets(hs, client_resource)
         user_directory.register_servlets(hs, client_resource)
         groups.register_servlets(hs, client_resource)
+
+
+class AdminRestResource(JsonResource):
+    """A resource for the matrix admin API."""
+
+    def __init__(self, hs):
+        JsonResource.__init__(self, hs, canonical_json=False)
+        self.register_servlets(self, hs)
+
+    @staticmethod
+    def register_servlets(admin_resource, hs):
+        appservices.register_servlets(hs, admin_resource)

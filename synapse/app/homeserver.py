@@ -23,7 +23,7 @@ import synapse.config.logger
 from synapse import events
 from synapse.api.urls import CONTENT_REPO_PREFIX, FEDERATION_PREFIX, \
     LEGACY_MEDIA_PREFIX, MEDIA_PREFIX, SERVER_KEY_PREFIX, SERVER_KEY_V2_PREFIX, \
-    STATIC_PREFIX, WEB_CLIENT_PREFIX
+    STATIC_PREFIX, WEB_CLIENT_PREFIX, ADMIN_PREFIX
 from synapse.app import _base
 from synapse.app._base import quit_with_error, listen_ssl, listen_tcp
 from synapse.config._base import ConfigError
@@ -40,7 +40,7 @@ from synapse.python_dependencies import CONDITIONAL_REQUIREMENTS, \
     check_requirements
 from synapse.replication.http import ReplicationRestResource, REPLICATION_PREFIX
 from synapse.replication.tcp.resource import ReplicationStreamProtocolFactory
-from synapse.rest import ClientRestResource
+from synapse.rest import ClientRestResource, AdminRestResource
 from synapse.rest.key.v1.server_key_resource import LocalKey
 from synapse.rest.key.v2 import KeyApiV2Resource
 from synapse.rest.media.v0.content_repository import ContentRepoResource
@@ -182,6 +182,14 @@ class SynapseHomeServer(HomeServer):
                 "/_matrix/client/unstable": client_resource,
                 "/_matrix/client/v2_alpha": client_resource,
                 "/_matrix/client/versions": client_resource,
+            })
+
+        if name == "admin":
+            admin_resource = AdminRestResource(self)
+            if compress:
+                admin_resource = gz_wrap(admin_resource)
+            resources.update({
+                ADMIN_PREFIX: admin_resource,
             })
 
         if name == "consent":
