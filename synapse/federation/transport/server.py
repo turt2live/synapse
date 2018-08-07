@@ -289,10 +289,9 @@ class FederationSendServlet(BaseFederationServlet):
                 len(transaction_data.get("edus", [])),
             )
 
-            if len(transaction_data.get("edus", [])) > 0 {
+            if len(transaction_data.get("edus", [])) > 0:
                 for edu in transaction_data.get("edus", []):
                     logger.info("EDU: %s" % edu)
-            }
 
             # We should ideally be getting this from the security layer.
             # origin = body["origin"]
